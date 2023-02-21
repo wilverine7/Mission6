@@ -8,8 +8,8 @@ using Mission6.Models;
 namespace Mission6.Migrations
 {
     [DbContext(typeof(MovieCollectionContext))]
-    [Migration("20230216165209_Seeded")]
-    partial class Seeded
+    [Migration("20230220193821_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,9 +23,8 @@ namespace Mission6.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("DirectorFirstName")
                         .IsRequired()
@@ -58,13 +57,15 @@ namespace Mission6.Migrations
 
                     b.HasKey("MovieId");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("responses");
 
                     b.HasData(
                         new
                         {
                             MovieId = 1,
-                            Category = "Action/Adventure",
+                            CategoryId = 1,
                             DirectorFirstName = "Joss",
                             DirectorLastName = "Whedon",
                             Edited = false,
@@ -75,7 +76,7 @@ namespace Mission6.Migrations
                         new
                         {
                             MovieId = 2,
-                            Category = "Comedy",
+                            CategoryId = 2,
                             DirectorFirstName = "Robert",
                             DirectorLastName = "Zemeckis",
                             Edited = false,
@@ -86,7 +87,7 @@ namespace Mission6.Migrations
                         new
                         {
                             MovieId = 3,
-                            Category = "Drama",
+                            CategoryId = 3,
                             DirectorFirstName = "Richard",
                             DirectorLastName = "Curtis",
                             Edited = true,
@@ -94,6 +95,72 @@ namespace Mission6.Migrations
                             Rating = "R",
                             Year = 2013
                         });
+                });
+
+            modelBuilder.Entity("Mission6.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = 1,
+                            CategoryName = "Action/Adventure"
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            CategoryName = "Comedy"
+                        },
+                        new
+                        {
+                            CategoryId = 3,
+                            CategoryName = "Drama"
+                        },
+                        new
+                        {
+                            CategoryId = 4,
+                            CategoryName = "Family"
+                        },
+                        new
+                        {
+                            CategoryId = 5,
+                            CategoryName = "Horror/Suspense"
+                        },
+                        new
+                        {
+                            CategoryId = 6,
+                            CategoryName = "Miscellaneous"
+                        },
+                        new
+                        {
+                            CategoryId = 7,
+                            CategoryName = "Television"
+                        },
+                        new
+                        {
+                            CategoryId = 8,
+                            CategoryName = "VHS"
+                        });
+                });
+
+            modelBuilder.Entity("Mission6.Models.ApplicationResponse", b =>
+                {
+                    b.HasOne("Mission6.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

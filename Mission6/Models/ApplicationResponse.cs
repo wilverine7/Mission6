@@ -15,8 +15,9 @@ namespace Mission6.Models
         [Required]
         public string MovieTitle { get; set; }
 
-        [Required]
-        public string Category { get; set; }
+      
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
 
         [Required]
         [Range(1850, 2023)]

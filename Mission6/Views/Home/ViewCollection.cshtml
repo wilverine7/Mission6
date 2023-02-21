@@ -1,0 +1,37 @@
+﻿@{
+}
+@model List<ApplicationResponse> 
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Category</th>
+            <th scope="col">Year Released</th>
+            <th scope="col">Director</th>
+            <th scope="col">Rating</th>
+            <th scope="col">Edited</th>
+            <th scope="col">Lent To</th>
+            <th scope="col">Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model)
+            {
+        <tr>
+            <td>@x.MovieTitle</td>
+            <td>@x.Category.CategoryName</td>
+            <td>@x.Year</td>
+            <td>@x.DirectorLastName, @x.DirectorFirstName</td>
+            <td>@x.Rating</td>
+            <td>@x.Edited</td>
+            <td>@x.LentTo</td>
+            <td>@x.Notes</td>
+
+            <td><a asp-controller="Home" asp-action="Edit" asp-route-id="@x.MovieId">Edit</a></td>
+            <td><a asp-controller="Home" asp-action="Delete" asp-route-id="@x.MovieId">Delete</a></td>
+
+
+        </tr>
+            }
+    </tbody>
+</table> 

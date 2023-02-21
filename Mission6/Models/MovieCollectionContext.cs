@@ -13,17 +13,64 @@ namespace Mission6.Models
 
         }
 
-        public DbSet<ApplicationResponse> responses { get; set; }
+        public DbSet<ApplicationResponse> Responses { get; set; }
+        public DbSet<Category> Categories { get; set; }
+
+
 
         protected override void OnModelCreating(ModelBuilder mb)
         {
+            mb.Entity<Category>().HasData(
+                new Category
+                {
+                    CategoryId = 1,
+                    CategoryName = "Action/Adventure"
+                },
+                new Category
+                {
+                    CategoryId = 2,
+                    CategoryName ="Comedy"
+                },
+                new Category
+                {
+                    CategoryId = 3,
+                    CategoryName = "Drama"
+                },
+                new Category
+                {
+                    CategoryId = 4,
+                    CategoryName = "Family"
+                },
+                new Category
+                {
+                    CategoryId = 5,
+                    CategoryName = "Horror/Suspense"
+                },
+                new Category
+                {
+                    CategoryId = 6,
+                    CategoryName = "Miscellaneous"
+                },
+                new Category
+                {
+                    CategoryId = 7,
+                    CategoryName = "Television"
+                },
+                new Category
+                {
+                    CategoryId = 8,
+                    CategoryName = "VHS"
+                }
+
+                );
+
             mb.Entity<ApplicationResponse>().HasData(
 
                 new ApplicationResponse
                 {
                     MovieId = 1,
                     MovieTitle = "Avengers, The",
-                    Category ="Action/Adventure",
+                    CategoryId = 1,
                     Year = 2012,
                     DirectorFirstName = "Joss",
                     DirectorLastName = "Whedon",
@@ -33,7 +80,7 @@ namespace Mission6.Models
                 {
                     MovieId = 2,
                     MovieTitle = "Back to the Future",
-                    Category = "Comedy",
+                    CategoryId = 2,
                     Year = 1985,
                     DirectorFirstName = "Robert",
                     DirectorLastName = "Zemeckis",
@@ -44,7 +91,7 @@ namespace Mission6.Models
                 {
                     MovieId = 3,
                     MovieTitle = "About Time",
-                    Category = "Drama",
+                    CategoryId = 3,
                     Year = 2013,
                     DirectorFirstName = "Richard",
                     DirectorLastName = "Curtis",
